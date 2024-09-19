@@ -1,30 +1,20 @@
-/* eslint-disable jest/expect-expect */
-/* eslint-disable jest/valid-expect */
-const { expect } = require('chai');
-const assert = require('assert');
+/**
+ * Simulates an API call to get a payment token
+ * @param {boolean} success - Whether the API call is successful or not
+ * @returns {Promise} A Promise that resolves with an object containing
+ * a "data" property if success is true. Otherwise, the Promise does nothing.
+ */
+function getPaymentTokenFromAPI(success) {
+  // eslint-disable-next-line no-unused-vars
+  return new Promise((resolve, reject) => {
+    if (success) {
+      resolve({ data: 'Successful response from the API' });
+    } else {
+      // We are not doing anything if success is false, 
+      // but we can reject the promise if desired
+      // reject('Error: API call failed');
+    }
+  });
+}
 
-const getPaymentTokenFromAPI = require('./6-payment_token');
-
-describe('getPaymentTokenFromAPI', () => {
-  it('returns a resolved promise with the object {data: "Successful response from the API"} when success is true', () => new Promise((done) => {
-    getPaymentTokenFromAPI(true)
-      .then((response) => {
-        expect(response).to.deep.equal({ data: 'Successful response from the API' });
-        done();
-      })
-      .catch(done);
-  }));
-
-  // FAILING BELOW
-  // eslint-disable-next-line jest/no-commented-out-tests, jest/no-disabled-tests
-  it.skip('should return a rejected promise when success is false', () => new Promise((done) => {
-    getPaymentTokenFromAPI(false, (err) => {
-      try {
-        assert.strictEqual(err, 'Error');
-        done();
-      } catch (err) {
-        done(err);
-      }
-    });
-  }));
-});
+module.exports = getPaymentTokenFromAPI;
